@@ -14,10 +14,32 @@ class ViewController: UIViewController {
     @IBOutlet weak var display: UIView!
     @IBOutlet weak var gameStatus: UITextField!
     @IBOutlet weak var points: UITextField!
+    @IBOutlet weak var highScoreBox: UITextField!
     
     @IBOutlet weak var redButton: UIButton!
     @IBOutlet weak var blueButton: UIButton!
     @IBOutlet weak var greenButton: UIButton!
+    
+    var randomRed: CGFloat = 0
+    var randomBlue: CGFloat = 0
+    var randomGreen: CGFloat = 0
+    var pointCounter = 0
+    
+    
+    
+    func getRandomColor() {
+        
+        randomRed = CGFloat.random(in: 0...1)
+        randomBlue = CGFloat.random(in: 0...1)
+        randomGreen = CGFloat.random(in: 0...1)
+        
+        let myColor = UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1)
+        
+        display.backgroundColor = myColor
+    
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,33 +47,74 @@ class ViewController: UIViewController {
        getRandomColor()
     }
 
+    
+    func winningColor(intake: UIButton) {
+           switch intake.tag {
+           case 0 :
+               if randomRed > randomBlue && randomRed > randomGreen  {
+                   gameStatus.text = "Correct!"
+                   pointCounter += 1
+                   points.text = "\(pointCounter)"
+               } else {
+                   gameStatus.text = "Incorrect. Try Again!"
+                   }
+           case 1 :
+               if randomBlue > randomRed && randomBlue > randomGreen {
+               gameStatus.text = "Correct!"
+               pointCounter += 1
+               points.text = "\(pointCounter)"
+           } else {
+               gameStatus.text = "Incorrect. Try Again!"
+                            
+               }
+           case 2:
+               if randomGreen > randomRed && randomGreen > randomBlue {
+                   gameStatus.text = "Correct!"
+                   pointCounter += 1
+                   points.text = "\(pointCounter)"
+               } else {
+                   gameStatus.text = "Incorrect. Try Again!"
+                
+                   }
+           default:
+               print("Nada")
+           }
+           }
+    
+    func highScore(currentScore: Int) {
+    
+        var highScore = 0
+        var currentScore = 0
+        currentScore = pointCounter
+        if currentScore > highScore {
+            highScore = currentScore
+            highScoreBox.text = "\(highScore)"
+        }
+    }
+    
+   
     var color = UIColor.white
     @IBAction func chooseColor(_ sender: UIButton) {
+      
+        winningColor(intake: sender)
+    
+        getRandomColor()
+        
+        highScore(currentScore: 0)
+        
+       
+        }
+            
         //var arrayOfColors = [randomRed, randomBlue, randomGreen]
         //var randomColor = arrayOfColors.randomElement()
-       getRandomColor()
-       // if sender = randomRed > randomBlue && randomRed > randomGreen  {
+       
+       //
         
         
-    }
     
-    func getRandomColor() {
-        
-        let randomRed = CGFloat.random(in: 0...1)
-        let randomBlue = CGFloat.random(in: 0...1)
-        let randomGreen = CGFloat.random(in: 0...1)
-        
-        //let randNum = CGFloat.random(in: 0...1)
-        
-        let myColor = UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1)
-        
-        display.backgroundColor = myColor
-        
-        
-            
-            
-        
-    }
     
-}
+    
+    
 
+  
+}
