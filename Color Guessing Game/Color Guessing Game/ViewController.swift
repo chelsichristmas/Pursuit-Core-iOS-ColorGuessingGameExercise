@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     var randomBlue: CGFloat = 0
     var randomGreen: CGFloat = 0
     var pointCounter = 0
+    var highScore = 0
     
     
     
@@ -57,6 +58,8 @@ class ViewController: UIViewController {
                    points.text = "\(pointCounter)"
                } else {
                    gameStatus.text = "Incorrect. Try Again!"
+                pointCounter = 0
+                points.text = "\(pointCounter)"
                    }
            case 1 :
                if randomBlue > randomRed && randomBlue > randomGreen {
@@ -65,6 +68,8 @@ class ViewController: UIViewController {
                points.text = "\(pointCounter)"
            } else {
                gameStatus.text = "Incorrect. Try Again!"
+                pointCounter = 0
+                points.text = "\(pointCounter)"
                             
                }
            case 2:
@@ -74,6 +79,8 @@ class ViewController: UIViewController {
                    points.text = "\(pointCounter)"
                } else {
                    gameStatus.text = "Incorrect. Try Again!"
+                pointCounter = 0
+                points.text = "\(pointCounter)"
                 
                    }
            default:
@@ -81,18 +88,18 @@ class ViewController: UIViewController {
            }
            }
     
-    func highScore(currentScore: Int) {
+    func highScore(currentScore: Int) -> Int {
     
-        var highScore = 0
-        var currentScore = 0
-        currentScore = pointCounter
+        
         if currentScore > highScore {
             highScore = currentScore
             highScoreBox.text = "\(highScore)"
-        }
+            
+            
+      }
+        return highScore
     }
     
-   
     var color = UIColor.white
     @IBAction func chooseColor(_ sender: UIButton) {
       
@@ -100,7 +107,7 @@ class ViewController: UIViewController {
     
         getRandomColor()
         
-        highScore(currentScore: 0)
+        highScore(currentScore: pointCounter)
         
        
         }
